@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="pokemon.css">
+</head>
+<body id="forest">
+	<div id="pokedex">
+	  <div id="left">
+	    <div id="logo"></div>
+	    <div id="bg_curve1_left"></div>
+	    <div id="bg_curve2_left"></div>
+	    <div id="curve1_left">
+	      <div id="buttonGlass" class="">
+	        <div id="reflect"> </div>
+	      </div>
+	      <div id="miniButtonGlass1"></div>
+	      <div id="miniButtonGlass2"></div>
+	      <div id="miniButtonGlass3"></div>
+	    </div>
+	    <div id="curve2_left">
+	      <div id="junction">
+	        <div id="junction1"></div>
+	        <div id="junction2"></div>
+	      </div>
+	    </div>
+	    <div id="screen">
+	      <div id="topPicture">
+	        <div id="buttontopPicture1"></div>
+	        <div id="buttontopPicture2"></div>
+	      </div>
+	      <div id = "picture">	      
+	       <span id = "imagem"></span>
+	      </div>
+	      <div id="buttonbottomPicture"></div>
+	      <div id="speakers">
+	        <div class="sp"></div>
+	        <div class="sp"></div>
+	        <div class="sp"></div>
+	        <div class="sp"></div>
+	      </div>
+	    </div>
+	    <div id="bigbluebutton"></div>
+	    <div id="barbutton1" ><span class="buttonBar">Turn on</span></div>
+	    <div id="barbutton2"><span class="buttonBar" >Turn off</span></div>
+	    <div id="cross">
+	      <div id="leftcross">
+	        <div id="leftT"></div>
+	      </div>
+	      <div id="topcross">
+	        <div id="upT"></div>
+	      </div>
+	      <div id="rightcross">
+	        <div id="rightT"></div>
+	      </div>
+	      <div id="midcross">
+	        <div id="midCircle"></div>
+	      </div>
+	      <div id="botcross">
+	        <div id="downT"></div>
+	      </div>
+	    </div>
+	  </div>
+	  <div id="right">
+	    <div id="stats">
+	    	<br>	    	
+	    	<strong> <span id="numero"></span></strong> <br/>
+	      	<strong> <span id="name"></span></strong> <br/>
+	      	<strong> <span id="tipo"></span></strong><br/>	     
+	      	<strong> <span id="weight"></span></strong><br/>
+	      	<br>	
+	      	<br>
+	      	<strong><span id= "print"></span></strong><br/>	
+	    </div>
+	    <div id="blueButtons1">
+	      <div class="blueButton" onclick="alterarNumPokedex(1)"><span class="numberButton">1</span></div>
+	      <div class="blueButton" onclick="alterarNumPokedex(2)"><span class="numberButton">2</span></div>
+	      <div class="blueButton" onclick="alterarNumPokedex(3)"><span class="numberButton">3</span></div>
+	      <div class="blueButton" onclick="alterarNumPokedex(4)"><span class="numberButton">4</span></div>
+	      <div class="blueButton" onclick="alterarNumPokedex(5)"><span class="numberButton">5</span></div>
+	    </div>
+	    <div id="blueButtons2">
+	      <div class="blueButton" onclick="alterarNumPokedex(6)"><span class="numberButton">6</span></div>
+	      <div class="blueButton" onclick="alterarNumPokedex(7)"><span class="numberButton">7</span></div>
+	      <div class="blueButton" onclick="alterarNumPokedex(8)"><span class="numberButton">8</span></div>
+	      <div class="blueButton" onclick="alterarNumPokedex(9)"><span class="numberButton">9</span></div>
+	      <div class="blueButton" onclick="alterarNumPokedex(0)"><span class="numberButton">0</span></div>
+	    </div>
+	    <div id="miniButtonGlass4"></div>
+	    <div id="miniButtonGlass5"></div>
+	    <div id="barbutton3" class="buttonBar" >Search</div>
+	    <div id="barbutton4" class="buttonBar">Cancel</div>
+	    <div id="yellowBox1"><span class="numberButton">Back</span></div> 
+	    <div id="yellowBox2"><span class="numberButton">Next</span></div>  
+	    <div id="bg_curve1_right"></div>
+	    <div id="bg_curve2_right"></div>
+	    
+	  </div>
+	</div>
+	<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous">	  	
+	</script>
+	
+	<script type="text/javascript">
+
+		
+		$("#yellowBox1").click(function(){
+			backPokemon();
+		});
+		$("#yellowBox2").click(function(){
+			nextPokemon();
+		});
+
+		$("#barbutton1").click(function(){
+			turnOn();
+		});		
+
+		$("#barbutton2").click(function(){
+			turnOff();
+		});
+
+		$("#barbutton3").click(function(){
+			pesquisar();
+		});		
+
+		$("#barbutton4").click(function(){
+			reset();
+		});
+
+		var acrescentar =  1 ;
+		var interval = null;
+		var contarImagem = 1;
+		var numPesquisa = "";
+
+		function alterarNumPokedex(num) {
+			numPesquisa = numPesquisa + num
+			printNumero();
+		};
+
+		function pesquisar() {
+			acrescentar = parseInt(numPesquisa);
+			escolherPokemon(acrescentar);
+			reset();
+		};
+
+		function reset() {
+			numPesquisa = ""
+			printNumero();
+		};
+
+		function turnOn() {
+			escolherPokemon(1);
+			acrescentar = 1
+			$("#buttonGlass").addClass('miniButtonGlassOn');
+			$("#miniButtonGlass5").addClass('miniButtonGlassOnGreen');
+		};
+
+		function turnOff() {
+			acrescentar = 0
+			clearInterval(interval)
+			$('#numero').text('');						
+		   	$('#name').text('');
+		   	$('#imagem').html("<img  height='100'  src='http://ap.imagensbrasil.org/images/fundo-branco.png' />" );
+		   	$('#weight').text('');
+		   	$('#tipo').text('');
+		   	$('#print').text('');
+		   	$("#buttonGlass").removeClass('miniButtonGlassOn');
+		   	$("#miniButtonGlass5").removeClass('miniButtonGlassOnGreen');
+		};
+
+		function printNumero(){
+			$('#print').text(numPesquisa);
+		}
+
+		function escolherPokemon(aaa){
+			$.get("https://pokeapi.co/api/v2/pokemon/" + aaa + "/", function(respostaSolicitacao) {								
+				$('#numero').text('Pokémon nº' + respostaSolicitacao.id);						
+		   		$('#name').text('Nome: ' + respostaSolicitacao.species.name);
+		   		$('#imagem').html("<img  height='160' " + "src=" + respostaSolicitacao.sprites.front_default  + " alt=" + respostaSolicitacao.name + "/>" );
+		   		$('#weight').text('Weight: ' + respostaSolicitacao.weight);
+		   		$('#tipo').text('Tipo: ' + respostaSolicitacao.types[0].type.name);
+		   		$('#print').text('')
+
+		   		if(interval) {
+			        clearInterval(interval);
+			    }
+
+		   		interval = setInterval(function(){
+					trocaImagem(respostaSolicitacao);
+					contarImagem++;
+				}, 1000);
+    			    			
+		   	});
+		 };
+
+		function trocaImagem(pokemon){	
+			if(contarImagem == 1) {
+				$('#imagem').html("<img  height='160' " + "src= 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/" + pokemon.id + ".png'"  + " alt=" + pokemon.name + "/>" );
+			} else if (contarImagem == 2) {
+				$('#imagem').html("<img  height='160' " + "src= 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.id + ".png'"  + " alt=" + pokemon.name + "/>" );
+			} else if (contarImagem == 3) {
+				$('#imagem').html("<img  height='160' " + "src= 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/" + pokemon.id + ".png'"  + " alt=" + pokemon.name + "/>" );
+			} else {
+				$('#imagem').html("<img  height='160' " + "src= 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png'"  + " alt=" + pokemon.name + "/>");
+				contarImagem = 1;
+			}
+		}
+
+
+		function nextPokemon(){
+			acrescentar += 1 ;
+			escolherPokemon(acrescentar);
+		};
+
+
+		function backPokemon(){
+			escolherPokemon(acrescentar);
+			acrescentar -= 1 ;
+
+			if (acrescentar < 0){
+			acrescentar = 1;
+			}
+		};	
+			
+	</script>	
+</body>
+</html>
